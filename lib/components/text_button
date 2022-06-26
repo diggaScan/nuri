@@ -1,0 +1,43 @@
+import 'package:flutter_yuanling_app/common/appearences/theme_color.dart';
+import 'package:flutter_yuanling_app/common/utils/utils.dart';
+import 'package:flutter/material.dart';
+
+class TextButton extends StatefulWidget {
+  final String text;
+  final VoidCallback? onPressed;
+
+  /// 按钮是否可用
+  final bool enabled;
+
+  const TextButton(
+      {Key? key, this.text = "按钮", this.onPressed, this.enabled = true})
+      : super(key: key);
+
+  @override
+  _TextButtonState createState() => _TextButtonState();
+}
+
+class _TextButtonState extends State<TextButton> {
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      constraints: BoxConstraints(),
+      highlightColor: widget.enabled ? Colors.transparent : Colors.transparent,
+      splashColor: widget.enabled ? null : Colors.transparent,
+      child: Text(
+        widget.text,
+        style: TextStyle(
+            fontSize: 14,
+            height: 1.2,
+            fontWeight: FontWeight.bold,
+            color: widget.enabled
+                ? ThemeColor.ylPrimary
+                : Utils.strColor('#C9CCD4')),
+      ),
+      onPressed: widget.enabled ? widget.onPressed : null,
+      onHighlightChanged: (value) {
+        setState(() {});
+      },
+    );
+  }
+}
