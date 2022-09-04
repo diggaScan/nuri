@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nuri/components/clikc_to_login.dart';
 import 'package:nuri/components/ui_button.dart';
+import 'package:nuri/domain_layer/api_impl.dart';
 import 'package:nuri/page/digital_identity_detail/add_link_page.dart';
 import 'package:nuri/page/registar_page.dart';
 import 'package:nuri/page/page_meta/page_status.dart';
@@ -16,15 +17,15 @@ import '../../components/error_page.dart';
 import '../../components/loading_page.dart';
 import '../../infrastructure_layer/utils/utils.dart';
 
-class DigitalIdentityDetailPage extends StatefulWidget {
-  const DigitalIdentityDetailPage({Key? key}) : super(key: key);
+class EditYourLand extends StatefulWidget {
+  final String domain;
+  const EditYourLand({Key? key,this.domain=''}) : super(key: key);
 
   @override
-  _DigitalIdentityDetailPageState createState() =>
-      _DigitalIdentityDetailPageState();
+  _EditYourLandState createState() => _EditYourLandState();
 }
 
-class _DigitalIdentityDetailPageState extends State<DigitalIdentityDetailPage>
+class _EditYourLandState extends State<EditYourLand>
     with PageStatus, TickerProviderStateMixin {
   ///---------- 页面生命周期回调 ----------
   @override
@@ -77,28 +78,20 @@ class _DigitalIdentityDetailPageState extends State<DigitalIdentityDetailPage>
   ///---------- 页面View ----------
 
   body() {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Material(
-        child: Container(
-          color: UiColor.black,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-                child: buildTop(),
-              ),
-              buildTab(),
-              Expanded(
-                  child: TabBarView(
-                controller: TabController(length: 2, vsync: this),
-                children: buildTabPage(),
-              )),
-            ],
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+          child: buildTop(),
         ),
-      ),
+        // buildTab(),
+        // Expanded(
+        //     child: TabBarView(
+        //   controller: TabController(length: 2, vsync: this),
+        //   children: buildTabPage(),
+        // )),
+      ],
     );
   }
 
@@ -157,7 +150,6 @@ class _DigitalIdentityDetailPageState extends State<DigitalIdentityDetailPage>
     );
   }
 
-  ///优质人才区域
   buildTab() {
     List<Widget> tabs = [];
     tabs.add(Tab(
@@ -227,16 +219,79 @@ class _DigitalIdentityDetailPageState extends State<DigitalIdentityDetailPage>
   }
 
   onClickAvatar(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalPopup(
         context: context,
-        builder: (BuildContext context) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              home: Material(
-                  child: Container(
-                height: 200,
-                width: Get.width,
-              )));
+        builder: (context) {
+          return Container(
+            height: 184,
+            color: UiColor.bottomSheetBkg,
+            width: Get.width,
+            child: Column(children: [
+              ListView.separated(
+                shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return Container(
+                          height: 55.5,
+                          alignment: Alignment.center,
+                          child: Text(
+                            "上传头像",
+                            style: UiTextStyles.n17(
+                              color: UiColor.white,
+                            ),
+                          ));
+                    } else if (index == 1) {
+                      return GestureDetector(
+                          onTap: () {
+                          
+                            onClickLogOut();
+                          },
+                          child: Container(
+                              height: 55.5,
+                              alignment: Alignment.center,
+                              child: Text(
+                                "退出账号",
+                                style: UiTextStyles.n17(
+                                  color: UiColor.alertRed,
+                                ),
+                              )));
+                    } else if (index == 2) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                            height: 72,
+                            alignment: Alignment.center,
+                            child: Text(
+                              "取消",
+                              style: UiTextStyles.n17(
+                                color: UiColor.grey4,
+                              ),
+                            )),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider(
+                      height: 0.5,
+                      thickness: 0.5,
+                      color: UiColor.grey2,
+                    );
+                  },
+                  itemCount: 3)
+            ]),
+          );
         });
+  }
+
+  onClickLogOut() {
+    //api 推出登录
+    // ApiImpl().logout();
+    Get.offAndToNamed(AppRoutes.Web3Entry);
   }
 }

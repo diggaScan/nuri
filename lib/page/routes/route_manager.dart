@@ -1,6 +1,6 @@
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:nuri/page/digital_identity_detail/digital_identity_detail.dart';
+import 'package:nuri/page/digital_identity_detail/edit_your_land.dart';
 import 'package:nuri/page/registar_page.dart';
 import 'package:nuri/page/login_page.dart';
 import 'package:nuri/page/web3_entry_page.dart';
@@ -46,7 +46,7 @@ class RouteManager {
     addPages(GetPage(
         name: AppRoutes.editYourLand,
         page: () {
-          return DigitalIdentityDetailPage();
+          return EditYourLand();
         }));
 
     addPages(GetPage(

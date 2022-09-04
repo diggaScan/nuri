@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> with PageStatus {
                     textAlignVertical: TextAlignVertical.center,
                     controller: TextEditingController(),
                     cursorRadius: Radius.circular(0),
-                    cursorColor: UiColor.brandingGreen,
+                    cursorColor: UiColor.white,
                     style: UiTextStyles.n17(color: UiColor.brandingGreen),
                     decoration:
                         BoxDecoration(color: Color.fromRGBO(49, 52, 57, 1)),
@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPage> with PageStatus {
                     placeholderStyle: UiTextStyles.n17(color: UiColor.grey3),
                     controller: TextEditingController(),
                     cursorRadius: Radius.circular(0),
-                    cursorColor: UiColor.brandingGreen,
+                    cursorColor: UiColor.white,
                     style: UiTextStyles.n17(color: UiColor.brandingGreen),
                     decoration:
                         BoxDecoration(color: Color.fromRGBO(49, 52, 57, 1)),

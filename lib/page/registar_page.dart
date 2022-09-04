@@ -249,8 +249,8 @@ class _RegistarPageState extends State<RegistarPage> with PageStatus {
                     textAlignVertical: TextAlignVertical.center,
                     controller: TextEditingController(),
                     cursorRadius: Radius.circular(0),
-                    cursorColor: UiColor.brandingGreen,
-                    style: UiTextStyles.n17(color: UiColor.brandingGreen),
+                    cursorColor: UiColor.white,
+                    style: UiTextStyles.n17(color: UiColor.white),
                     decoration:
                         BoxDecoration(color: Color.fromRGBO(49, 52, 57, 1)),
                   ),
@@ -305,8 +305,8 @@ class _RegistarPageState extends State<RegistarPage> with PageStatus {
                     placeholderStyle: UiTextStyles.n17(color: UiColor.grey3),
                     controller: TextEditingController(),
                     cursorRadius: Radius.circular(0),
-                    cursorColor: UiColor.brandingGreen,
-                    style: UiTextStyles.n17(color: UiColor.brandingGreen),
+                    cursorColor: UiColor.white,
+                    style: UiTextStyles.n17(color: UiColor.white),
                     decoration:
                         BoxDecoration(color: Color.fromRGBO(49, 52, 57, 1)),
                   ),
