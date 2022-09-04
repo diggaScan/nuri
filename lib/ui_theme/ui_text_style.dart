@@ -92,6 +92,11 @@ class UiTextStyles {
           {Color? color, double? height = 18.0 / 12.0, bool? bold = false}) =>
       style(color: color, size: 12, height: height, bold: bold);
 
+  /// 11号字体
+  static TextStyle n11(
+          {Color? color, double? height = 18.0 / 11.0, bool? bold = false}) =>
+      style(color: color, size: 11, height: height, bold: bold);
+
   /// 10号字体
   static TextStyle n10(
           {Color? color, double? height = 14.0 / 10.0, bool? bold = false}) =>

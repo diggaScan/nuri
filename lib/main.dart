@@ -1,13 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nuri/domain_layer/api_impl.dart';
+import 'package:nuri/env_config.dart';
 import 'package:nuri/page/routes/route_manager.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Material(child: MyApp()),
-  ));
+void main() async {
+  await initiateConfig();
+  runApp(MyApp());
+}
+
+initiateConfig() async {
+  var clientId = await EnvConfig.getClientId();
+  ApiImpl().init(
+      domain: "hechuan.moapi.dev.iln.cc/",
+      sendTimeout: 5000,
+      connectTimeout: 5000,
+      receiveTimeout: 6000,
+      clientId: clientId,
+      version: "1.0.0");
 }
 
 class MyApp extends StatelessWidget {
@@ -37,22 +48,9 @@ class MyApp extends StatelessWidget {
                   fontSize: 17,
                   color: Colors.black,
                   height: 1.25))),
-      home: MyHomePage(),
       debugShowCheckedModeBanner: false,
       getPages: RouteManager().init(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

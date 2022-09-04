@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:nuri/components/clikc_to_login.dart';
 import 'package:nuri/components/ui_button.dart';
 import 'package:nuri/page/digital_identity_detail/link_card.dart';
-import 'package:nuri/page/logn_in_page.dart';
+import 'package:nuri/page/registar_page.dart';
 import 'package:nuri/page/page_meta/page_status.dart';
 import 'package:nuri/page/routes/route_manager.dart';
 import 'package:nuri/ui_theme/ui_color.dart';

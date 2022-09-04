@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dio/dio.dart';
 import 'package:nuri/infrastructure_layer/http/abstract_dhttp.dart';
 import 'package:nuri/infrastructure_layer/http/config.dart';

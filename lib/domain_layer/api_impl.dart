@@ -20,8 +20,8 @@ class ApiImpl{
       required int receiveTimeout,
       required String clientId,
       required String version}) {
-    SimpleDHttp simpleDHttp=SimpleDHttp();
-    simpleDHttp.init(domain: domain, sendTimeout: sendTimeout, connectTimeout: connectTimeout, receiveTimeout: receiveTimeout, clientId: clientId, version: version)
+     _simpleDHttp=SimpleDHttp();
+    _simpleDHttp?.init(domain: domain, sendTimeout: sendTimeout, connectTimeout: connectTimeout, receiveTimeout: receiveTimeout, clientId: clientId, version: version);
   }
   /**
    * 抢占昵称
@@ -74,6 +74,10 @@ getVerifyCode({required String account,required String countryCode,required int 
   _simpleDHttp?.get("/client/config",{});
  }
 
+///域名是否已经被占用
+  hasDomainAvailable(){
+     _simpleDHttp?.get("",{});
+  }
 
 
 

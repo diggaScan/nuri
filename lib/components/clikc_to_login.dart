@@ -4,7 +4,8 @@ import 'package:nuri/ui_theme/ui_text_style.dart';
 
 class ClickToLogin extends StatelessWidget {
   final Function? onTap;
-  const ClickToLogin({Key? key,this.onTap}) : super(key: key);
+  final String content;
+  const ClickToLogin({Key? key,this.onTap,this.content='点击登录'}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ClickToLogin extends StatelessWidget {
           style: UiTextStyles.n12(color: UiColor.grey3),
         ),
         Text(
-          "点击登录",
+          content,
           style: UiTextStyles.n12(color: UiColor.brandingGreen),
         ),
       ]),

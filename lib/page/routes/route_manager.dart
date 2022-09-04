@@ -1,8 +1,17 @@
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:nuri/page/digital_identity_detail/digital_identity_detail.dart';
-import 'package:nuri/page/logn_in_page.dart';
+import 'package:nuri/page/registar_page.dart';
+import 'package:nuri/page/login_page.dart';
 import 'package:nuri/page/web3_entry_page.dart';
+
+class AppRoutes {
+  //主页面
+  static const Web3Entry = '/home'; //创建域名页面
+  static const registar = '/registar'; //注册页面
+  static const login = '/login'; //登录页面
+  static const editYourLand = '/editYourLand'; //个人信息编辑页面
+}
 
 class RouteManager {
   List<GetPage>? pages;
@@ -29,15 +38,24 @@ class RouteManager {
     addPages(GetPage(
         name: AppRoutes.login,
         page: () {
-          String mode = getParameterString("mode");
+          String domain = getParameterString("domain", defaultValue: "");
           return LoginPage(
-            mode: mode,
+            domain: domain,
           );
         }));
     addPages(GetPage(
-        name: AppRoutes.digitalIdentityDetailPage,
+        name: AppRoutes.editYourLand,
         page: () {
           return DigitalIdentityDetailPage();
+        }));
+
+    addPages(GetPage(
+        name: AppRoutes.registar,
+        page: () {
+          String domain = getParameterString("domain", defaultValue: "");
+          return RegistarPage(
+            domain: domain,
+          );
         }));
     return pages ?? [];
   }
@@ -53,11 +71,4 @@ class RouteManager {
     if (value == null || value.isEmpty) return defaultValue;
     return value;
   }
-}
-
-class AppRoutes {
-  //主页面
-  static const Web3Entry = '/home';
-  static const login = '/login';
-  static const digitalIdentityDetailPage = '/digitalIdentityDetailPage';
 }
