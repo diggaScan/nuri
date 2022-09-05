@@ -9,5 +9,5 @@ class UiColor {
   static Color grey4 = Color.fromRGBO(189, 189, 189, 1);
   static Color alertRed = Color.fromRGBO(235, 87, 87, 1);
   static Color transparent = Color.fromRGBO(235, 87, 87, 0);
-  static Color bottomSheetBkg = Color.fromRGBO(49, 52, 57, 0);
+  static Color bottomSheetBkg = Color.fromRGBO(49, 52, 57, 1);
 }

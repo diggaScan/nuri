@@ -19,7 +19,7 @@ import '../../infrastructure_layer/utils/utils.dart';
 
 class EditYourLand extends StatefulWidget {
   final String domain;
-  const EditYourLand({Key? key,this.domain=''}) : super(key: key);
+  const EditYourLand({Key? key, this.domain = ''}) : super(key: key);
 
   @override
   _EditYourLandState createState() => _EditYourLandState();
@@ -43,9 +43,13 @@ class _EditYourLandState extends State<EditYourLand>
   Widget build(BuildContext context) {
     switch (pageState) {
       case PageState.success:
-        return Scaffold(
-          backgroundColor: UiColor.black,
-          body: body(),
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          color: UiColor.black,
+          home: Scaffold(
+            backgroundColor: UiColor.black,
+            body: body(),
+          ),
         );
       case PageState.loading:
         return const LoadingPage();
@@ -78,21 +82,28 @@ class _EditYourLandState extends State<EditYourLand>
   ///---------- 页面View ----------
 
   body() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: buildTop(),
-        ),
-        // buildTab(),
-        // Expanded(
-        //     child: TabBarView(
-        //   controller: TabController(length: 2, vsync: this),
-        //   children: buildTabPage(),
-        // )),
-      ],
-    );
+    return NestedScrollView(
+        headerSliverBuilder: (context, bol) {
+          return [
+            SliverToBoxAdapter(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                child: buildTop(),
+              ),
+            ),
+            SliverPersistentHeader(
+              delegate: SliverTabBarDelegate(
+                buildTab(),
+                color: Colors.black,
+              ),
+              pinned: true,
+            ),
+          ];
+        },
+        body: TabBarView(
+          controller: TabController(length: 2, vsync: this),
+          children: buildTabPage(),
+        ));
   }
 
   buildTop() {
@@ -131,18 +142,28 @@ class _EditYourLandState extends State<EditYourLand>
         ),
         Row(
           children: [
-            Image.asset(
-              Utils.getImgPath("hide_icon"),
-              width: 20,
-              height: 20,
+            GestureDetector(
+              onTap: () {
+                onClickPreview();
+              },
+              child: Image.asset(
+                Utils.getImgPath("hide_icon"),
+                width: 20,
+                height: 20,
+              ),
             ),
             SizedBox(
               width: 16,
             ),
-            Image.asset(
-              Utils.getImgPath("share_icon"),
-              width: 20,
-              height: 20,
+            GestureDetector(
+              onTap: () {
+                onClickShare();
+              },
+              child: Image.asset(
+                Utils.getImgPath("share_icon"),
+                width: 20,
+                height: 20,
+              ),
             ),
           ],
         )
@@ -228,7 +249,7 @@ class _EditYourLandState extends State<EditYourLand>
             width: Get.width,
             child: Column(children: [
               ListView.separated(
-                shrinkWrap: true,
+                  shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.zero,
                   itemBuilder: (BuildContext context, int index) {
@@ -244,8 +265,8 @@ class _EditYourLandState extends State<EditYourLand>
                           ));
                     } else if (index == 1) {
                       return GestureDetector(
+                          behavior: HitTestBehavior.opaque,
                           onTap: () {
-                          
                             onClickLogOut();
                           },
                           child: Container(
@@ -259,6 +280,7 @@ class _EditYourLandState extends State<EditYourLand>
                               )));
                     } else if (index == 2) {
                       return GestureDetector(
+                        behavior: HitTestBehavior.opaque,
                         onTap: () {
                           Get.back();
                         },
@@ -289,9 +311,43 @@ class _EditYourLandState extends State<EditYourLand>
         });
   }
 
+  onClickPreview() {
+    Get.toNamed(AppRoutes.yourLand);
+  }
+
+//分享
+  onClickShare() {}
+
   onClickLogOut() {
     //api 推出登录
     // ApiImpl().logout();
     Get.offAndToNamed(AppRoutes.Web3Entry);
   }
+}
+
+class SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
+  final TabBar widget;
+  final Color? color;
+
+  const SliverTabBarDelegate(this.widget, {this.color});
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new Container(
+      child: widget,
+      color: color,
+    );
+  }
+
+  @override
+  bool shouldRebuild(SliverTabBarDelegate oldDelegate) {
+    return false;
+  }
+
+  @override
+  double get maxExtent => widget.preferredSize.height;
+
+  @override
+  double get minExtent => widget.preferredSize.height;
 }

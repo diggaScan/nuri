@@ -4,6 +4,7 @@ import 'package:nuri/page/digital_identity_detail/edit_your_land.dart';
 import 'package:nuri/page/registar_page.dart';
 import 'package:nuri/page/login_page.dart';
 import 'package:nuri/page/web3_entry_page.dart';
+import 'package:nuri/page/your_land.dart';
 
 class AppRoutes {
   //主页面
@@ -11,6 +12,7 @@ class AppRoutes {
   static const registar = '/registar'; //注册页面
   static const login = '/login'; //登录页面
   static const editYourLand = '/editYourLand'; //个人信息编辑页面
+  static const yourLand = '/YourLand'; //web3.0预览
 }
 
 class RouteManager {
@@ -47,6 +49,11 @@ class RouteManager {
         name: AppRoutes.editYourLand,
         page: () {
           return EditYourLand();
+        }));
+   addPages(GetPage(
+        name: AppRoutes.yourLand,
+        page: () {
+          return YourLand();
         }));
 
     addPages(GetPage(
