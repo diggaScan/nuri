@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nuri/components/clikc_to_login.dart';
+import 'package:nuri/components/nuri_dialog/dialog_utils.dart';
 import 'package:nuri/components/ui_button.dart';
 import 'package:nuri/domain_layer/api_impl.dart';
 import 'package:nuri/page/digital_identity_detail/add_link_page.dart';
+import 'package:nuri/page/digital_identity_detail/edit_basic_info.dart';
 import 'package:nuri/page/registar_page.dart';
 import 'package:nuri/page/page_meta/page_status.dart';
 import 'package:nuri/page/routes/route_manager.dart';
@@ -206,7 +208,7 @@ class _EditYourLandState extends State<EditYourLand>
       onTap: (value) {},
       tabs: tabs,
       isScrollable: true,
-      labelColor: UiColor.brandingGreen,
+      labelColor: UiColor.white,
       labelStyle: UiTextStyles.b17(color: UiColor.white),
       unselectedLabelColor: UiColor.grey3,
       unselectedLabelStyle: UiTextStyles.b17(color: UiColor.grey3),
@@ -223,12 +225,14 @@ class _EditYourLandState extends State<EditYourLand>
 
   buildTabPage() {
     List<Widget> pages = [];
-    for (int i = 0; i < 2; i++) {
-      pages.add(Container(
-        child: AddLinkPage(),
-        margin: EdgeInsets.symmetric(horizontal: 20),
-      ));
-    }
+    pages.add(Container(
+      child: AddLinkPage(),
+      margin: EdgeInsets.symmetric(horizontal: 20),
+    ));
+    pages.add(Container(
+      child: EditBasicInfo(),
+      margin: EdgeInsets.symmetric(horizontal: 20),
+    ));
     return pages;
   }
 
@@ -240,75 +244,69 @@ class _EditYourLandState extends State<EditYourLand>
   }
 
   onClickAvatar(BuildContext context) {
-    showCupertinoModalPopup(
-        context: context,
-        builder: (context) {
-          return Container(
-            height: 184,
-            color: UiColor.bottomSheetBkg,
-            width: Get.width,
-            child: Column(children: [
-              ListView.separated(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index == 0) {
-                      return Container(
-                          height: 55.5,
-                          alignment: Alignment.center,
-                          child: Text(
-                            "上传头像",
-                            style: UiTextStyles.n17(
-                              color: UiColor.white,
-                            ),
-                          ));
-                    } else if (index == 1) {
-                      return GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: () {
-                            onClickLogOut();
-                          },
-                          child: Container(
-                              height: 55.5,
-                              alignment: Alignment.center,
-                              child: Text(
-                                "退出账号",
-                                style: UiTextStyles.n17(
-                                  color: UiColor.alertRed,
-                                ),
-                              )));
-                    } else if (index == 2) {
-                      return GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Container(
-                            height: 72,
-                            alignment: Alignment.center,
-                            child: Text(
-                              "取消",
-                              style: UiTextStyles.n17(
-                                color: UiColor.grey4,
-                              ),
-                            )),
-                      );
-                    } else {
-                      return Container();
-                    }
+    DialogUtils.showBottomUpDialogWithFrame(
+      context,
+      Column(children: [
+        ListView.separated(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == 0) {
+                return Container(
+                    height: 55.5,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "上传头像",
+                      style: UiTextStyles.n17(
+                        color: UiColor.white,
+                      ),
+                    ));
+              } else if (index == 1) {
+                return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      onClickLogOut();
+                    },
+                    child: Container(
+                        height: 55.5,
+                        alignment: Alignment.center,
+                        child: Text(
+                          "退出账号",
+                          style: UiTextStyles.n17(
+                            color: UiColor.alertRed,
+                          ),
+                        )));
+              } else if (index == 2) {
+                return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    Get.back();
                   },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Divider(
-                      height: 0.5,
-                      thickness: 0.5,
-                      color: UiColor.grey2,
-                    );
-                  },
-                  itemCount: 3)
-            ]),
-          );
-        });
+                  child: Container(
+                      height: 72,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "取消",
+                        style: UiTextStyles.n17(
+                          color: UiColor.grey4,
+                        ),
+                      )),
+                );
+              } else {
+                return Container();
+              }
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(
+                height: 0.5,
+                thickness: 0.5,
+                color: UiColor.grey2,
+              );
+            },
+            itemCount: 3)
+      ]),
+    );
   }
 
   onClickPreview() {

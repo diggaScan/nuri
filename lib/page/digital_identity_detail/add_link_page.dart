@@ -111,7 +111,6 @@ class _AddLinkPageState extends State<AddLinkPage> with PageStatus {
             Obx((){
               return ListView.separated(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
               separatorBuilder: (BuildContext context, int index) {
                 return Container(height: 16,width: Get.width,);
               },

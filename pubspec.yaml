@@ -39,7 +39,7 @@ dependencies:
   uuid: ^3.0.4
   shared_preferences: ^2.0.15
   fluttertoast: ^8.0.9
-
+  switcher: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +67,8 @@ flutter:
     - assets/images/empty_pic.png
     - assets/images/pen_icon.png
     - assets/images/cross_icon_red_bkg.png
+    - assets/images/arrow_right.png
+    - assets/images/round_cross.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

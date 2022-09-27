@@ -4,7 +4,7 @@ import 'package:nuri/page/digital_identity_detail/edit_your_land.dart';
 import 'package:nuri/page/registar_page.dart';
 import 'package:nuri/page/login_page.dart';
 import 'package:nuri/page/web3_entry_page.dart';
-import 'package:nuri/page/your_land.dart';
+import 'package:nuri/page/your_land/your_land.dart';
 
 class AppRoutes {
   //主页面
