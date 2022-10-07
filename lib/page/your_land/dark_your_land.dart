@@ -111,7 +111,7 @@ class _DarkYourLandState extends State<DarkYourLand>
           children: [
             GestureDetector(
               onTap: () {
-                onClickPreview();
+                // onClickPreview();
               },
               child: Image.asset(
                 Utils.getImgPath("hide_icon"),
@@ -124,7 +124,7 @@ class _DarkYourLandState extends State<DarkYourLand>
             ),
             GestureDetector(
               onTap: () {
-                onClickShare();
+                // onClickShare();
               },
               child: Image.asset(
                 Utils.getImgPath("share_icon"),
