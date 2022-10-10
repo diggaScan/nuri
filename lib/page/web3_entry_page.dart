@@ -16,6 +16,8 @@ import 'package:nuri/ui_theme/ui_text_style.dart';
 import '../components/empty_page.dart';
 import '../components/error_page.dart';
 import '../components/loading_page.dart';
+import '../domain_layer/bp_module_login/bp_module_login.dart';
+import '../domain_layer/bp_module_login/data/name_used_response_entity.dart';
 import '../infrastructure_layer/utils/utils.dart';
 
 class Web3EntryPage extends StatefulWidget {
@@ -240,7 +242,7 @@ class _Web3EntryPageState extends State<Web3EntryPage> with PageStatus {
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: UiButton(
-                        onClick: () {
+                        onClick: () async{
                           if (domain.isEmpty) {
                             doaminErrorTip.value = "请输入域名，仅支持英文字母,数字和下划线";
                             return;
@@ -252,13 +254,13 @@ class _Web3EntryPageState extends State<Web3EntryPage> with PageStatus {
                           }, whenDomainUnvalid: () {
                             doaminErrorTip.value = "请输入域名，仅支持英文字母,数字和下划线";
                             showQualifiedIcon.value = 2;
-                          }, whenDomainValid: () {
+                          }, whenDomainValid: ()async {
                             doaminErrorTip.value = "";
                             showQualifiedIcon.value = 1;
 
-                            //进行抢占
-                            // ApiImpl().registerName(nickName: domain);
-                            if (true) {
+                            // 进行抢占
+                            NameUsedResponseEntity entity= await BpModuleLogin().isDomainUsed(nickName: domain);
+                            if (entity.sInfo=="usable") {
                               onClickRegistar();
                             } else {
                               doaminErrorTip.value = "域名已被使用，请重新输入";

@@ -5,6 +5,10 @@ import 'package:nuri/infrastructure_layer/http/simple_dhttp.dart';
 
 class ApiImpl{
 
+  static SimpleDHttp getHttp(){
+    return SimpleDHttp().getHttp();
+  }
+
   static  ApiImpl? _instance;
   SimpleDHttp? _simpleDHttp;
   ApiImpl._();

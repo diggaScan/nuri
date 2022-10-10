@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nuri/domain_layer/api_impl.dart';
 import 'package:nuri/env_config.dart';
+import 'package:nuri/infrastructure_layer/http/simple_dhttp.dart';
 import 'package:nuri/page/routes/route_manager.dart';
 
 void main() async {
@@ -12,12 +13,12 @@ void main() async {
 
 initiateConfig() async {
   var clientId = await EnvConfig.getClientId();
-  ApiImpl().init(
-      domain: "hechuan.moapi.dev.iln.cc/",
+  SimpleDHttp().init(
+      domain: "https://hechuan.moapi.dev.iln.cc/api/1.0.0/",
       sendTimeout: 5000,
       connectTimeout: 5000,
       receiveTimeout: 6000,
-      clientId: clientId,
+      clientId: clientId??'',
       version: "1.0.0");
 }
 

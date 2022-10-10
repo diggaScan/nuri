@@ -17,6 +17,9 @@ import '../components/empty_page.dart';
 import '../components/error_page.dart';
 import '../components/loading_page.dart';
 import '../components/toast.dart';
+import '../domain_layer/bp_module_login/bp_module_login.dart';
+import '../domain_layer/bp_module_login/data/get_verifycode_response_entity.dart';
+import '../domain_layer/bp_module_login/data/login_response_entity.dart';
 import '../infrastructure_layer/utils/utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -262,13 +265,18 @@ class _LoginPageState extends State<LoginPage> with PageStatus {
   }
 
 //发送验证码
-  onClickSendVerificationCode() {
+  onClickSendVerificationCode() async{
     //发送验证码
-    //ApiImpl().getVerifyCode(account: accountNum, countryCode: "86", type: 3);
-    NuriToast.show("验证码已发送");
+    GetVerifyCodeResponseEntity entity= await BpModuleLogin().getVerifyCode(account: accountNum);
+    if(entity.sInfo=="success"){
+      NuriToast.show("验证码已发送");
+    }else{
+      NuriToast.show("诶呀！序没展开，这可怎么办");
+
+    }
   }
 
-  onClickEnterEditPage() {
+  onClickEnterEditPage() async{
      if (accountNum.isEmpty) {
         NuriToast.show("请输入手机号码");
         return;
@@ -278,7 +286,10 @@ class _LoginPageState extends State<LoginPage> with PageStatus {
         return;
       }
     //Api 登录
-    Get.toNamed(AppRoutes.editYourLand);
+     LoginResponseEntity entity= await BpModuleLogin().login(account: accountNum,verifyCode:verificationCode );
+
+
+     Get.toNamed(AppRoutes.editYourLand);
   }
 
   onClickRegistar() {

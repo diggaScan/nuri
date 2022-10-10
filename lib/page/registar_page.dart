@@ -18,10 +18,14 @@ import '../components/empty_page.dart';
 import '../components/error_page.dart';
 import '../components/loading_page.dart';
 import '../components/toast.dart';
+import '../domain_layer/bp_module_login/bp_module_login.dart';
+import '../domain_layer/bp_module_login/data/get_verifycode_response_entity.dart';
+import '../domain_layer/bp_module_login/data/register_response_entity.dart';
 import '../infrastructure_layer/utils/utils.dart';
 
 class RegistarPage extends StatefulWidget {
   final String domain;
+
   const RegistarPage({Key? key, this.domain = ''}) : super(key: key);
 
   @override
@@ -371,7 +375,7 @@ class _RegistarPageState extends State<RegistarPage> with PageStatus {
     }, whenDomainUnvalid: () {
       doaminErrorTip.value = "请输入域名，仅支持英文字母,数字和下划线";
       showQualifiedIcon.value = 2;
-    }, whenDomainValid: () {
+    }, whenDomainValid: () async {
       doaminErrorTip.value = "";
       showQualifiedIcon.value = 1;
       if (accountNum.isEmpty) {
@@ -383,9 +387,12 @@ class _RegistarPageState extends State<RegistarPage> with PageStatus {
         return;
       }
       //api 进行抢占,注册
+      RegisterResponseEntity entity = await BpModuleLogin().registerAccount(
+          account: accountNum, verifyCode: verificationCode, nickName: domain);
+
       // ApiImpl().registerName(nickName: domain);
       //ApiImpl().accountRegister(accountName: accountName, verify: verify, repeat: repeat, nickName: nickName, key: key, type: type)
-      if (true) {
+      if (entity.mPrimary == 1) {
         Get.toNamed(AppRoutes.editYourLand);
       } else {
         doaminErrorTip.value = "域名已被使用，请重新输入";
@@ -395,9 +402,12 @@ class _RegistarPageState extends State<RegistarPage> with PageStatus {
   }
 
   //发送验证码
-  onClickSendVerificationCode() {
+  onClickSendVerificationCode() async {
     //发送验证码
-    //ApiImpl().getVerifyCode(account: accountNum, countryCode: "86", type: 3);
-    NuriToast.show("验证码已发送");
+    GetVerifyCodeResponseEntity entity =
+        await BpModuleLogin().getVerifyCode(account: accountNum);
+    if (entity.sInfo == "success") {
+      NuriToast.show("验证码已发送");
+    } else {}
   }
 }
